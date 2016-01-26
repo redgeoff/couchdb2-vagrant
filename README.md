@@ -31,7 +31,7 @@ Then in a separate window:
 
     $ vagrant ssh
     $ cd /usr/src/couchdb
-    $ sudo haproxy -f rel/haproxy.cfg & # Run HAProxy to reverse proxy the requests
+    $ sudo haproxy -f rel/haproxy.cfg # Run HAProxy to reverse proxy the requests
 
 
 Accessing Fauxton
