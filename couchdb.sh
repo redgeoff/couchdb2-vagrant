@@ -1,23 +1,40 @@
 #!/usr/bin/env bash
 
-apt-get install -y build-essential erlang-base \
-        erlang-dev erlang-manpages erlang-eunit erlang-nox \
-        libicu-dev libmozjs185-dev libcurl4-openssl-dev \
-        pkg-config haproxy python-sphinx texlive-binaries
-
-# Install erlang
-apt-get install -y build-essential autoconf libncurses5-dev openssl libssl-dev fop xsltproc unixodbc-dev git
-cd /usr/src
-wget http://erlang.org/download/otp_src_R16B03-1.tar.gz
-tar zxvf otp_src_R16B03-1.tar.gz
-cd otp_src_R16B03-1
-./configure && make && make install
+apt-get --no-install-recommends -y install \
+    build-essential pkg-config erlang \
+    libicu-dev libmozjs185-dev libcurl4-openssl-dev
 
 # Install CouchDB 2.0
 cd /usr/src
-git clone https://git-wip-us.apache.org/repos/asf/couchdb.git
-npm install -g grunt-cli
-cd couchdb
-git checkout developer-preview-2.0
+wget http://www-eu.apache.org/dist/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
+tar xfz apache-couchdb-2.0.0.tar.gz
+cd apache-couchdb-2.0.0
 ./configure
-make
+make release
+
+# Create couchdb User
+adduser --system \
+        --shell /bin/bash \
+        --group --gecos \
+        "CouchDB Administrator" couchdb
+
+# Copy binaries to user's directory
+cp -R ./rel/couchdb /home/couchdb
+
+# Change the owernship
+chown -R couchdb:couchdb /home/couchdb/couchdb
+
+# Change the permission of the CouchDB directories
+find /home/couchdb/couchdb -type d -exec chmod 0770 {} \;
+
+# Update the permissions of ini files
+chmod 0644 /home/couchdb/couchdb/etc/*
+
+# Enable CouchDB to listen on any host
+sed -i "s/;bind_address = 127.0.0.1/bind_address = 0.0.0.0/g" /home/couchdb/couchdb/etc/local.ini
+
+# Single node setup. TODO: need to start DB and then configure
+# sudo -i -u couchdb couchdb/bin/couchdb
+# curl -X PUT http://127.0.0.1:5984/_users
+# curl -X PUT http://127.0.0.1:5984/_replicator
+# curl -X PUT http://127.0.0.1:5984/_global_changes
