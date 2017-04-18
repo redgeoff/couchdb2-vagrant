@@ -23,15 +23,19 @@ Set Up
 Running CouchDB
 ---
 
-    $ vagrant ssh
-    $ cd /usr/src/couchdb
-    $ sudo dev/run # Runs CouchDB. Note the admin password
+    CouchDB is started automatically via systemd
 
-Then in a separate window:
+To stop:
 
-    $ vagrant ssh
-    $ cd /usr/src/couchdb
-    $ sudo haproxy -f rel/haproxy.cfg # Run HAProxy to reverse proxy the requests
+    $ sudo systemctl stop couchdb2
+
+To restart:
+
+    $ sudo systemctl restart restart
+
+For systemd log:
+
+    $ journalctl -u couchdb2
 
 
 Accessing Fauxton
@@ -43,4 +47,4 @@ Visit http://couchdb2.dev:5984/_utils
 For more info
 ---
 
-See http://couchdb.apache.org/developer-preview/2.0/
+See http://docs.couchdb.org/en/2.0.0

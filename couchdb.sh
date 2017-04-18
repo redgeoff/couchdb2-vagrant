@@ -33,8 +33,15 @@ chmod 0644 /home/couchdb/couchdb/etc/*
 # Enable CouchDB to listen on any host
 sed -i "s/;bind_address = 127.0.0.1/bind_address = 0.0.0.0/g" /home/couchdb/couchdb/etc/local.ini
 
-# Single node setup. TODO: need to start DB and then configure
-# sudo -i -u couchdb couchdb/bin/couchdb
-# curl -X PUT http://127.0.0.1:5984/_users
-# curl -X PUT http://127.0.0.1:5984/_replicator
-# curl -X PUT http://127.0.0.1:5984/_global_changes
+# Configure CouchDB to run as a service via systemd
+cp /vagrant/couchdb2.service /etc/systemd/system/couchdb2.service
+systemctl start couchdb2
+systemctl enable couchdb2
+
+# Sleep to allow time for database to start
+sleep 10
+
+# Single node setup
+curl -X PUT http://127.0.0.1:5984/_users
+curl -X PUT http://127.0.0.1:5984/_replicator
+curl -X PUT http://127.0.0.1:5984/_global_changes
