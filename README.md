@@ -16,7 +16,7 @@ Set Up
     Edit /etc/hosts and add
       192.168.50.9 couchdb2.dev
     $ git clone https://github.com/redgeoff/couchdb2-vagrant
-    $ cd couchdb2
+    $ cd couchdb2-vagrant
     $ vagrant up
 
 
