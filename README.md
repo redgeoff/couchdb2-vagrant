@@ -23,7 +23,7 @@ Set Up
 Running CouchDB
 ---
 
-    CouchDB is started automatically via systemd
+CouchDB is started automatically via systemd.
 
 To stop:
 
