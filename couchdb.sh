@@ -45,3 +45,7 @@ sleep 10
 curl -X PUT http://127.0.0.1:5984/_users
 curl -X PUT http://127.0.0.1:5984/_replicator
 curl -X PUT http://127.0.0.1:5984/_global_changes
+
+# Enable CORS
+npm install -g add-cors-to-couchdb
+add-cors-to-couchdb

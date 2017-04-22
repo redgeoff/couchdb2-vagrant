@@ -3,5 +3,8 @@
 # Update ubuntu
 /vagrant/ubuntu.sh
 
+# Install nodejs
+/vagrant/nodejs.sh
+
 # Build and install CouchDB from source
 /vagrant/couchdb.sh
