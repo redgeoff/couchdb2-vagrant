@@ -31,7 +31,7 @@ To stop:
 
 To restart:
 
-    $ sudo systemctl restart restart
+    $ sudo systemctl restart couchdb2
 
 For systemd log:
 
