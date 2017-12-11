@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+COUCHDB_VERSION=2.1.1
+
 apt-get --no-install-recommends -y install \
     build-essential pkg-config erlang \
     libicu-dev libmozjs185-dev libcurl4-openssl-dev
 
-# Install CouchDB 2.0
+# Install CouchDB
 cd /usr/src
-wget http://www-eu.apache.org/dist/couchdb/source/2.0.0/apache-couchdb-2.0.0.tar.gz
-tar xfz apache-couchdb-2.0.0.tar.gz
-cd apache-couchdb-2.0.0
+wget http://www-us.apache.org/dist/couchdb/source/$COUCHDB_VERSION/apache-couchdb-$COUCHDB_VERSION.tar.gz
+tar xfz apache-couchdb-$COUCHDB_VERSION.tar.gz
+cd apache-couchdb-$COUCHDB_VERSION
 ./configure
 make release
 
